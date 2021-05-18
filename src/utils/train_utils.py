@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
-from sklearn.metrics import roc_auc_score, roc_curve, precision_recall_curve, average_precision_score
+from sklearn.metrics import roc_auc_score, roc_curve, precision_recall_curve, average_precision_score, f1_score
 
 import PIL
 
@@ -24,6 +24,15 @@ def compute_AUC(y, preds):
     preds = preds.astype(np.float32).reshape([-1])
     AUC = roc_auc_score(y, preds)
     return AUC
+
+def compute_f1(y, preds):
+    y = y.astype(np.long).reshape([-1])
+    preds = np.where(preds > 0.5, 1, 0).reshape([-1])
+
+    f1 = f1_score(y, preds, labels='array-like')
+
+    return f1
+
 
 
 def compute_PRAUC(y,preds):

@@ -26,8 +26,8 @@ class Dataset(data.Dataset):
 
         self.data = np.load(processed_datapath).astype(np.float32)
         assert phase in ["train", "test"]
-        
-        
+
+
         # 하나는 label
         self.feature_size = self.data.shape[1] - 1
         test_start = (len(self.data) * split) // fold
@@ -245,7 +245,7 @@ class Dataset(data.Dataset):
             x[dropout_indices, 1:0] = 0.0
             #x = x * num_variables / (num_variables - 1)  # scale the vector magnitudes to account for the dropout
             x = x.flatten()
-        
+
         return x, y
 
     def __len__(self):
