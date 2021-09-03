@@ -426,9 +426,9 @@ def train_ml_compare(info: TrainInformation, split, fold):
     regressor.fit(train_input, train_label)
     preds_regressor = regressor.predict_proba(test_dataset.data[:, 1:])[:, 1]
     auc_regressor = train_utils.compute_AUC(test_dataset.data[:, :1], preds_regressor)
-    TP, TN, FN, FP = confusion_matrix(test_dataset.data[:, :1], regressor.predict(test_dataset.data[:, 1:])).ravel()
+    TN, FP, FN, TP = confusion_matrix(test_dataset.data[:, :1], regressor.predict(test_dataset.data[:, 1:])).ravel()
     print(f'auc_regressor is {auc_regressor}')
-    print("logistic regression TP, TN, FN, FP : {}, {}, {}, {}".format(TP, TN, FN, FP))
+    print("logistic regression TN, FP, FN, TP : {}, {}, {}, {}".format(TN, FP, FN, TP))
     ###########################################
 
     # randomforest ############################
@@ -440,9 +440,9 @@ def train_ml_compare(info: TrainInformation, split, fold):
     forest.fit(train_input, train_label)
     preds_forest = forest.predict_proba(test_dataset.data[:, 1:])[:, 1]
     auc_forest = train_utils.compute_AUC(test_dataset.data[:, :1], preds_forest)
-    TP, TN, FN, FP = confusion_matrix(test_dataset.data[:, :1], forest.predict(test_dataset.data[:, 1:])).ravel()
+    TN, FP, FN, TP = confusion_matrix(test_dataset.data[:, :1], forest.predict(test_dataset.data[:, 1:])).ravel()
     print(f'auc_forest is {auc_forest}')
-    print("random forest TP, TN, FN, FP : {}, {}, {}, {}".format(TP, TN, FN, FP))
+    print("random forest TN, FP, FN, TP : {}, {}, {}, {}".format(TN, FP, FN, TP))
 
     ###########################################
 
@@ -454,10 +454,10 @@ def train_ml_compare(info: TrainInformation, split, fold):
     svc.fit(train_input, train_label)
     Y = svc.decision_function(test_dataset.data[:, 1:])
     preds_svc = (Y - Y.min()) / (Y.max() - Y.min())
-    TP, TN, FN, FP = confusion_matrix(test_dataset.data[:, :1], svc.predict(test_dataset.data[:, 1:])).ravel()
+    TN, FP, FN, TP = confusion_matrix(test_dataset.data[:, :1], svc.predict(test_dataset.data[:, 1:])).ravel()
     auc_svc = train_utils.compute_AUC(test_dataset.data[:, :1], preds_svc)
     print(f'auc_svc is {auc_svc}')
-    print("svc TP, TN, FN, FP : {}, {}, {}, {}".format(TP, TN, FN, FP))
+    print("svc TN, FP, FN, TP : {}, {}, {}, {}".format(TN, FP, FN, TP))
 
     ###########################################
 
@@ -469,9 +469,9 @@ def train_ml_compare(info: TrainInformation, split, fold):
     kneighbors.fit(train_input, train_label)
     preds_kneighbors = kneighbors.predict_proba(test_dataset.data[:, 1:])[:, 1]
     auc_kneighbors = train_utils.compute_AUC(test_dataset.data[:, :1], preds_kneighbors)
-    TP, TN, FN, FP = confusion_matrix(test_dataset.data[:, :1], kneighbors.predict(test_dataset.data[:, 1:])).ravel()
+    TN, FP, FN, TP = confusion_matrix(test_dataset.data[:, :1], kneighbors.predict(test_dataset.data[:, 1:])).ravel()
     print(f'auc_kneighbors is {auc_kneighbors}')
-    print("kneighbors TP, TN, FN, FP : {}, {}, {}, {}".format(TP, TN, FN, FP))
+    print("kneighbors TN, FP, FN, TP : {}, {}, {}, {}".format(TN, FP, FN, TP))
 
     ###########################################
 
